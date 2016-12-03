@@ -13,7 +13,7 @@ class AnotherClass(metaclass=SimpleCounter):
 
     @classmethod
     def print_instance_count(cls):
-        print("Instances {}".format(cls._count))
+        print("Instances {}".format(cls._instances))
 
 
 class SomeOtherClass(metaclass=SimpleCounter):
@@ -22,7 +22,7 @@ class SomeOtherClass(metaclass=SimpleCounter):
 
     @classmethod
     def print_instance_count(cls):
-        print("Instances: {}".format(cls._count))
+        print("Instances: {}".format(cls._instances))
 
 # A simple class
 a = AnotherClass()
@@ -37,3 +37,7 @@ c = SomeOtherClass()
 
 # Is 3 because SimpleCounter does not distinguish between classes
 c.print_instance_count()
+
+# You can also get a list of instances of all the instances with:
+
+print("Instances: {}".format(", ".join(str(a) for a in SimpleCounter._instances)))

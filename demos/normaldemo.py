@@ -13,7 +13,7 @@ class AnotherClass(metaclass=Counter):
 
     @classmethod
     def print_instance_count(cls):
-        print("Amount of {} classes: {}".format(cls.__name__, cls._count))
+        print("Amount of {} instances: {}".format(cls.__name__, cls._count))
 
 
 class SomeOtherClass(metaclass=Counter):
@@ -22,7 +22,7 @@ class SomeOtherClass(metaclass=Counter):
 
     @classmethod
     def print_instance_count(cls):
-        print("Amount of {} classes: {}".format(cls.__name__, cls._count))
+        print("Amount of {} instances: {}".format(cls.__name__, cls._count))
 
 # One class
 a = AnotherClass()
@@ -37,3 +37,12 @@ c = SomeOtherClass()
 
 # Is 1 because Counter DOES distinguish between classes
 c.print_instance_count()
+
+# You can also get a list of instances of all class instances with:
+
+# All instances of AnotherClass
+another_class = (str(a) for a in Counter._instances.get(AnotherClass))
+print("Instances of AnotherClass: {}".format(", ".join(another_class)))
+# All instances of SomeOtherClass
+some_class = (str(a) for a in Counter._instances.get(SomeOtherClass))
+print("Instances of SomeOtherClass: {}".format(", ".join(some_class)))

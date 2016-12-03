@@ -1,0 +1,5 @@
+0.1.1
+- SimpleCounter and Counter now keeps track of all instances so they can be iterated over
+
+0.1
+- Initial version

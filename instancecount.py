@@ -1,7 +1,7 @@
 # coding=utf-8
 
 __author__ = "DefaltSimon"
-__version__ = "0.1"
+__version__ = "0.1.1"
 
 
 class SimpleCounter(type):
@@ -11,13 +11,13 @@ class SimpleCounter(type):
 
     Use SimpleCounter._count or YourClass._count to get the count
     """
-    _count = 0
+    _instances = []
 
     def __call__(cls, *args, **kwargs):
         instance = super(SimpleCounter, cls).__call__(*args, **kwargs)
 
-        SimpleCounter._count += 1
-        cls._count = SimpleCounter._count
+        SimpleCounter._instances.append(instance)
+        cls._instances = len(SimpleCounter._instances)
 
         return instance
 
@@ -29,16 +29,16 @@ class Counter(type):
 
     Use Counter.classes[cls] or YourClass._count to get the count
     """
-    _classes = {}
+    _instances = {}
 
     def __call__(cls, *args, **kwargs):
         instance = super(Counter, cls).__call__(*args, **kwargs)
 
-        if not Counter._classes.get(cls):
-            Counter._classes[cls] = 1
+        if not Counter._instances.get(cls):
+            Counter._instances[cls] = [instance]
         else:
-            Counter._classes[cls] += 1
+            Counter._instances[cls].append(instance)
 
-        cls._count = Counter._classes[cls]
+        cls._count = len(Counter._instances[cls])
 
         return instance
